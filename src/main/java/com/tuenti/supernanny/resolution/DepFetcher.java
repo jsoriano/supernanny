@@ -64,9 +64,12 @@ public class DepFetcher {
 		executor.shutdown();
 
 		// delete untracked projects
-		for (File f : util.getFile(null, util.getDepsFolder()).listFiles()) {
-			if (f.isDirectory() && !jobs.containsKey(f.getName())) {
-				util.deleteDir(f);
+		File libDirectory = util.getFile(null, util.getDepsFolder());
+		if (libDirectory.isDirectory()) {
+			for (File f : libDirectory.listFiles()) {
+				if (f.isDirectory() && !jobs.containsKey(f.getName())) {
+					util.deleteDir(f);
+				}
 			}
 		}
 	}
